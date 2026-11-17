@@ -14,6 +14,7 @@ const startServer = async () => {
 
   await connectDB();
 
+  console.log("Resend API key loaded:", !!process.env.RESEND_API_KEY);
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

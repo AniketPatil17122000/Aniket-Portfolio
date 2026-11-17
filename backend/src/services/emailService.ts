@@ -1,5 +1,5 @@
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 interface ContactEmailData {
     name: string;
@@ -8,21 +8,15 @@ interface ContactEmailData {
     message: string;
 }
 
+// const resend = new Resend(process.env.RESEND_API_KEY);
+
 export const sendContactNotification = async (data: ContactEmailData) => {
+        const resend = new Resend(process.env.RESEND_API_KEY!);
 
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        secure: Number(process.env.SMTP_PORT) === 465,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-        }
-    });
 
-    return await transporter.sendMail({
-        from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
-        to: process.env.ADMIN_EMAIL,
+    const { data: emailData, error } = await resend.emails.send({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: "brandstatus47@gmail.com",
         replyTo: data.email,
         subject: `New Portfolio Contact: ${data.subject}`,
         text: `
@@ -36,4 +30,10 @@ Message:
 ${data.message}
         `
     });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return emailData;
 };
