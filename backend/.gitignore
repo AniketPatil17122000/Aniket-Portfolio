@@ -1,0 +1,15 @@
+node_modules/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Secrets and private keys
+*.pem
+*.key
