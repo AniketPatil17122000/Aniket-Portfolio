@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://Aniket_Patil_Portfolio.com/sitemap.xml
+Sitemap: https://aniket-patil-portfolio.vercel.app/sitemap.xml
